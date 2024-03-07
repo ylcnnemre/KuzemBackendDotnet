@@ -1,0 +1,6 @@
+@KuzemBackendDotnet.API_HostAddress = http://localhost:5052
+
+GET {{KuzemBackendDotnet.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
