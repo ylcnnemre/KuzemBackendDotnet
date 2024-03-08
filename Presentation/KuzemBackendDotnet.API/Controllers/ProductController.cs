@@ -8,18 +8,19 @@ namespace KuzemBackendDotnet.API.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
-
-        public ProductController(IProductService productService )
+        private readonly IConfiguration _configuration;
+        public ProductController(IProductService productService,IConfiguration configuration )
         {
             this._productService = productService;
+            this._configuration = configuration;
         }
 
 
         [HttpGet]
         public IActionResult GetProducts()
         {
-            var products = _productService.GetProducts();
-            return Ok(products);
+            var connectionString = _configuration["AppName"];
+            return Ok(connectionString);
         }
     }
 }

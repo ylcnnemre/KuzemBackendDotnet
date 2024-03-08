@@ -13,5 +13,7 @@ namespace KuzemBackendDotnet.Domain.Entities
         public int Stock { get; set; }
         public long Price { get; set; }
 
+        public string Description { get; set; } 
+
     }
 }
