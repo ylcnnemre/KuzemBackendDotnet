@@ -1,14 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using KuzemBackendDotnet.Domain;
-using KuzemBackendDotnet.Persistence.Concretes;
 using KuzemBackendDotnet.Persistence.Contexts;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using KuzemBackendDotnet.Application.Repositories.Course;
+using KuzemBackendDotnet.Persistence.Repositories;
+using KuzemBackendDotnet.Application.Repositories;
 
 namespace KuzemBackendDotnet.Persistence
 {
@@ -19,9 +15,12 @@ namespace KuzemBackendDotnet.Persistence
             ConfigurationManager configurationManager = new ConfigurationManager();
             configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/KuzemBackendDotnet.API"));
             configurationManager.AddJsonFile("appsettings.json");
-
-            services.AddScoped<IProductService, ProductService>();
             services.AddDbContext<KuzemDbContext>(options => options.UseNpgsql( configurationManager.GetConnectionString("PostgreSql") ));
+
+            services.AddScoped<ICourseReadRepository,CourseReadRepository>();
+            services.AddScoped<ICourseWriteRepository,CourseWriteRepository>(); 
+            services.AddScoped<ISemesterReadRepository,SemesterReadRepository>();
+            services.AddScoped<ISemesterWriteRepository,SemesterWriteRepository>();
         }
     }
 }

@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KuzemBackendDotnet.Domain
+namespace KuzemBackendDotnet.Application.Repositories
 {
-    public interface IProductService
+    public interface ISemesterReadRepository:IReadRepository<Semester>
     {
-        List<Product> GetProducts();
     }
 }

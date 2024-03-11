@@ -7,13 +7,10 @@ using System.Threading.Tasks;
 
 namespace KuzemBackendDotnet.Domain.Entities
 {
-    public class Product:BaseEntity
+    public class Course : BaseEntity
     {
-        public string Name { get; set; }
-        public int Stock { get; set; }
-        public long Price { get; set; }
+        public string Title { get; set; }
 
-        public string Description { get; set; } 
-
+        public Semester? semester { get; set; }
     }
 }

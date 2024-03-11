@@ -3,6 +3,7 @@ using System;
 using KuzemBackendDotnet.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KuzemBackendDotnet.Persistence.Migrations
 {
     [DbContext(typeof(KuzemDbContext))]
-    partial class KuzemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240311074054_mig4")]
+    partial class mig4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,15 +34,9 @@ namespace KuzemBackendDotnet.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid?>("semesterId")
                         .HasColumnType("uuid");
@@ -48,7 +45,7 @@ namespace KuzemBackendDotnet.Persistence.Migrations
 
                     b.HasIndex("semesterId");
 
-                    b.ToTable("Course");
+                    b.ToTable("course");
                 });
 
             modelBuilder.Entity("KuzemBackendDotnet.Domain.Entities.Semester", b =>
@@ -57,18 +54,12 @@ namespace KuzemBackendDotnet.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("Active")
-                        .HasColumnType("boolean");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -78,10 +69,10 @@ namespace KuzemBackendDotnet.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<bool>("active")
+                        .HasColumnType("boolean");
 
-                    b.Property<int>("Year")
+                    b.Property<int>("year")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -92,7 +83,7 @@ namespace KuzemBackendDotnet.Persistence.Migrations
             modelBuilder.Entity("KuzemBackendDotnet.Domain.Entities.Course", b =>
                 {
                     b.HasOne("KuzemBackendDotnet.Domain.Entities.Semester", "semester")
-                        .WithMany("Courses")
+                        .WithMany("courses")
                         .HasForeignKey("semesterId");
 
                     b.Navigation("semester");
@@ -100,7 +91,7 @@ namespace KuzemBackendDotnet.Persistence.Migrations
 
             modelBuilder.Entity("KuzemBackendDotnet.Domain.Entities.Semester", b =>
                 {
-                    b.Navigation("Courses");
+                    b.Navigation("courses");
                 });
 #pragma warning restore 612, 618
         }

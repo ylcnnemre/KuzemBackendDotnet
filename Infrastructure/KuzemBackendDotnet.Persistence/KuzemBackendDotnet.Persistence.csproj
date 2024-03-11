@@ -22,4 +22,8 @@
     <ProjectReference Include="..\..\Core\KuzemBackendDotnet.Application\KuzemBackendDotnet.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Concretes\" />
+  </ItemGroup>
+
 </Project>

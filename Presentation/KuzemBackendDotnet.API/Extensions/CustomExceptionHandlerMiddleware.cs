@@ -24,13 +24,22 @@ namespace KuzemBackendDotnet.API.Extensions
             {
                 await HandleNotFoundExceptionAsync(context, ex);
             }
-            catch (Exception)
+            catch (ConflictException ex)
             {
+                await ConflictExceptionAsync(context, ex);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Excepton =>", ex.InnerException);
                 // Diğer türdeki istisnalar için genel hata mesajı döndürebilirsiniz
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                await context.Response.WriteAsync("Internal Server Error");
+                await context.Response.WriteAsync(ex.Message);
             }
         }
+
+
+
 
         private async Task HandleNotFoundExceptionAsync(HttpContext context, NotFoundException ex)
         {
@@ -46,5 +55,18 @@ namespace KuzemBackendDotnet.API.Extensions
             await context.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
 
+        private async Task ConflictExceptionAsync(HttpContext context, ConflictException ex)
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = ex.StatusCode;
+
+            var response = new
+            {
+                StatusCode = ex.StatusCode,
+                Message = ex.Message
+            };
+
+            await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+        }
     }
 }

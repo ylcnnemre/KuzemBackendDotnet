@@ -20,4 +20,8 @@
     <ProjectReference Include="..\..\Infrastructure\KuzemBackendDotnet.Persistence\KuzemBackendDotnet.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\filesdoc\" />
+  </ItemGroup>
+
 </Project>
